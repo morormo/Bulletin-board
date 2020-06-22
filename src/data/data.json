@@ -1,0 +1,22 @@
+{
+  "posts": [
+      {
+        "id": 1,
+        "name": "Title 1",
+        "description": "Lorem ipsum",
+        "email": "morormo@gmail.com"
+      },
+      {
+        "id": 2,
+        "name": "Title 2",
+        "description": "Lorem ipsum",
+        "email": "morormo@gmail.com"
+      },
+      {
+        "id": 3,
+        "name": "Title 3",
+        "description": "Lorem ipsum",
+        "email": "morormo@gmail.com"
+      }
+  ]
+}

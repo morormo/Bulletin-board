@@ -5,7 +5,7 @@ import clsx from 'clsx';
 
 import Button from '@material-ui/core/Button';
 import {NavLink} from 'react-router-dom';
-import {Post} from '../../views/Post/Post';
+import {Post} from '../../features/Post/Post';
 
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';

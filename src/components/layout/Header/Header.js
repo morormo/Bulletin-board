@@ -14,12 +14,12 @@ import { PageNav } from '../../layout/PageNav/PageNav';
 
 import styles from './Header.module.scss';
 
-const Component = ({className, children}) => (
+const Component = ({className}) => (
   <div className={clsx(className, styles.root)}>
     <AppBar className = {styles.component}>
       <Container>
         <Toolbar disableGutters>
-          <PageNav/>
+          <PageNav userLoged/>
         </Toolbar>
       </Container>
     </AppBar>
@@ -28,7 +28,6 @@ const Component = ({className, children}) => (
 );
 
 Component.propTypes = {
-  children: PropTypes.node,
   className: PropTypes.string,
 };
 

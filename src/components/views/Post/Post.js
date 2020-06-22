@@ -1,59 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import clsx from 'clsx';
+import {AD} from '../../features/AD/AD';
 
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './Post.module.scss';
 
-import { AD } from '../../features/AD/AD'
+const data =
+  {
+    id: 1,
+    name: 'Title 1',
+    description: 'Lorem ipsum',
+    email: 'morormo@gmail.com',
+  };
 
-export const Data = [
- {
-   id: 1,
-   name: 'Daniel Stokłosa',
-   description: 'Lorem ipsum',
-   email: 'morormo@gmail.com',
- },
- {
-  id: 2,
-  name: 'Daniel Stokłosa1',
-  description: 'Lorem ipsum',
-  email: 'morormo@gmail.com',
-},
-{
-  id: 3,
-  name: 'Daniel Stokłosa2',
-  description: 'Lorem ipsum',
-  email: 'morormo@gmail.com',
-},
-{
-  id: 4,
-  name: 'Daniel Stokłosa3',
-  description: 'Lorem ipsum',
-  email: 'morormo@gmail.com',
-},
-
-];
-
-const Component = ({className, children}) => (
-  <div className={clsx(className, styles.root)}>
-    {Data.map(post => (
-      <AD
-        key={post.id}
-        name={post.name}
-        description={post.description}
-        email={post.email}
-        id={post.id}
-      />
-    ))}
+const Component = ({id, name, description, email}) => (
+  <div className={styles.root}>
+    <h1>Details</h1>
+    <AD
+      id={id}
+      name={data.name}
+      description={data.description}
+      email={data.email}
+    />
   </div>
 );
 
 Component.propTypes = {
-  post: PropTypes.array,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  description: PropTypes.string,
+  email: PropTypes.string,
 };
 
 // const mapStateToProps = state => ({

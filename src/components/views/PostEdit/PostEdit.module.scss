@@ -1,4 +1,34 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+.root {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .header {
+    color: #2b4c6f;
+    font-weight: bold;
+    font-size: 24px;
+    margin: 10px
+  }
+  .link {
+    color: #fff;
+    background-color: #2b4c6f;
+
+    &:hover {
+      color: #2b4c6f;
+      background-color: #fff;
+    }
+  }
+  .form {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .textfield {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+}

@@ -7,11 +7,19 @@ import clsx from 'clsx';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './PostEdit.module.scss';
+import { TextField } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
-const Component = ({className, children}) => (
+const Component = ({className}) => (
   <div className={clsx(className, styles.root)}>
-    <h2>PostEdit</h2>
-    {children}
+    <div className={styles.header}>Post Edit</div>
+    <form className={styles.form} noValidate autoComplete="off">
+      <TextField className={styles.textfield} id="outlined-basic" label="ID" variant="outlined" />
+      <TextField className={styles.textfield} id="outlined-basic" label="Name" variant="outlined" />
+      <TextField className={styles.textfield} id="outlined-basic" label="Description" variant="outlined" multiline="true" />
+      <TextField className={styles.textfield} id="outlined-basic" label="E-mail" variant="outlined" />
+      <Button type="submit" className={styles.link} to={process.env.PUBLIC_URL + '/post/:id'}>Submit</Button>
+    </form>
   </div>
 );
 

@@ -6,13 +6,14 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 // import { connect } from 'react-redux';
 // import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 
 import styles from './AD.module.scss';
 
-const Component = ({id, name, description, phone}) => (
+const Component = ({id, name, description, email}) => (
   <div className={styles.root}>
     <Link to={`/post/${id}`} className={styles.link}>
       <Card  className={styles.item}>
@@ -29,8 +30,8 @@ const Component = ({id, name, description, phone}) => (
             {description}
           </Typography>
           <div className={styles.footer}>
-            <Typography>{phone}</Typography>
-            <Button to={process.env.PUBLIC_URL + `/post/${id}/edit`}> Edit </Button>
+            <Typography>{email}</Typography>
+            <Button className={styles.link} component={NavLink} to={process.env.PUBLIC_URL + `/post/${id}/edit`}> Edit </Button>
           </div>
         </CardContent>
       </Card>
@@ -42,7 +43,7 @@ Component.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
   description: PropTypes.string,
-  phone: PropTypes.number,
+  email: PropTypes.string,
 };
 
 // const mapStateToProps = state => ({
