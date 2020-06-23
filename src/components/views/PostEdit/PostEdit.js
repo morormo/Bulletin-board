@@ -3,43 +3,70 @@ import PropTypes from 'prop-types';
 
 import clsx from 'clsx';
 
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+import { connect } from 'react-redux';
+import { editPost } from '../../../redux/postsRedux';
 
 import styles from './PostEdit.module.scss';
 import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-const Component = ({className}) => (
-  <div className={clsx(className, styles.root)}>
-    <div className={styles.header}>Post Edit</div>
-    <form className={styles.form} noValidate autoComplete="off">
-      <TextField className={styles.textfield} id="outlined-basic" label="ID" variant="outlined" />
-      <TextField className={styles.textfield} id="outlined-basic" label="Name" variant="outlined" />
-      <TextField className={styles.textfield} id="outlined-basic" label="Description" variant="outlined" multiline="true" />
-      <TextField className={styles.textfield} id="outlined-basic" label="E-mail" variant="outlined" />
-      <Button type="submit" className={styles.link} to={process.env.PUBLIC_URL + '/post/:id'}>Submit</Button>
-    </form>
-  </div>
-);
+const Component =  ({posts, match, className, editPost}) => {
+  const editedPost = posts.data[match.params.id];
+
+  const [post, updatePost] = React.useState ({
+    name: '',
+    description: '',
+    email: '',
+  });
+  const handleChange = (e, name) => {
+    updatePost ({
+      ...post,
+      [name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) =>{
+  e.preventDefault();
+  editPost({...editedPost, post});
+  };
+
+  return (
+    <div className={clsx(className, styles.root)}>
+      <div className={styles.header}>Post Edit</div>
+      <form className={styles.form} noValidate autoComplete="off" onSubmit={e => handleSubmit(e)}>
+        <TextField className={styles.textfield} id="outlined-basic" label="Name" variant="outlined" onChange = {e => handleChange(e, 'name')}/>
+        <TextField className={styles.textfield} id="outlined-basic" label="Description" variant="outlined" multiline="true" onChange = {e => handleChange(e, 'description')} />
+        <TextField className={styles.textfield} id="outlined-basic" label="E-mail" variant="outlined" onChange = {e => handleChange(e, 'email')} />
+        <Button type="submit" className={styles.link} to={process.env.PUBLIC_URL + '/post/:id'}>Submit</Button>
+      </form>
+    </div>
+  );
+};
 
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  posts: PropTypes.object,
+  match: PropTypes.shape ({
+    params: PropTypes.shape ({
+      id: PropTypes.string,
+    }),
+  }),
+  editPost: PropTypes.func,
 };
 
-// const mapStateToProps = state => ({
-//   someProp: reduxSelector(state),
-// });
+const mapStateToProps = state => ({
+posts: state.posts,
+});
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  editPost: post => dispatch(editPost(post)),
+});
 
-// const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
+const PostEditContainer = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
-  Component as PostEdit,
-  // Container as PostEdit,
+  //Component as PostEdit,
+  PostEditContainer as PostEdit,
   Component as PostEditComponent,
 };

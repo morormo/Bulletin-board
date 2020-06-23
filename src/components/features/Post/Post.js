@@ -23,7 +23,7 @@ const Component = ({posts}) => (
 );
 
 Component.propTypes = {
-  posts: PropTypes.array,
+  posts: PropTypes.object,
 };
 
 const mapStateToProps = state => ({

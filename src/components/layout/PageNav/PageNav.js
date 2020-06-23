@@ -9,10 +9,10 @@ import Button from '@material-ui/core/Button';
 
 import styles from './PageNav.module.scss';
 
-const Component = ({userLoged}) => (
+const Component = ({userLogged}) => (
   <div className={styles.root}>
     <nav className={styles.component}>
-      {userLoged
+      {userLogged
       ?
       <div>
         <Button
@@ -32,6 +32,13 @@ const Component = ({userLoged}) => (
         </div>
       :
       <div>
+        <Button
+          className={styles.link}
+          component={NavLink}
+          excact to={process.env.PUBLIC_URL + '/'}
+          activeClassName='active'>
+            Home
+        </Button>
         <Button
           className={styles.link}
           component={NavLink}
