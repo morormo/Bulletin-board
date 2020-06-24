@@ -31,4 +31,5 @@ export const initialState = {
       active: false,
       error: false,
     },
+    userLogged: true,
 };
