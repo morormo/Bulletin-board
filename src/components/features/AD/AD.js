@@ -13,24 +13,18 @@ import {Link} from 'react-router-dom';
 
 import styles from './AD.module.scss';
 
-const Component = ({id, name, description, email}) => (
+const Component = ({id, title, text, author, created, updated, status}) => (
   <div className={styles.root}>
     <Link to={`/post/${id}`} className={styles.link}>
       <Card  className={styles.item}>
         <CardContent>
-          <Typography
-            variant="h5"
-            color="primary"
-            paragraph ="true"
-          >
-            {name}
-          </Typography>
-          <Typography
-            paragraph ="true">
-            {description}
-          </Typography>
+          <Typography variant="h5" color="primary" paragraph ={true}>{title}</Typography>
+          <Typography className={styles.info}>published: {created}</Typography>
+          <Typography className={styles.info}>last edit: {updated}</Typography>
+          <Typography className={styles.info}>status: {status}</Typography>
+          <Typography paragraph ={true}> {text} </Typography>
           <div className={styles.footer}>
-            <Typography>{email}</Typography>
+            <Typography>{author}</Typography>
             {/* <Button className={styles.link} component={NavLink} to={process.env.PUBLIC_URL + `/post/${id}/edit`}> Edit </Button> */}
           </div>
         </CardContent>
@@ -40,10 +34,14 @@ const Component = ({id, name, description, email}) => (
 );
 
 Component.propTypes = {
-  id: PropTypes.number,
-  name: PropTypes.string,
-  description: PropTypes.string,
-  email: PropTypes.string,
+  id: PropTypes.string,
+  title: PropTypes.string,
+  text: PropTypes.string,
+  author: PropTypes.string,
+  created: PropTypes.string,
+  updated: PropTypes.string,
+  status: PropTypes.string,
+  userLogged: PropTypes.bool
 };
 
 // const mapStateToProps = state => ({

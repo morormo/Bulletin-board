@@ -6,28 +6,32 @@ import Button from '@material-ui/core/Button';
 import {NavLink} from 'react-router-dom';
 
 import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+import { getAll } from '../../../redux/postsRedux';
 
 import styles from './Post.module.scss';
 
 
 const Component = ({ posts, match, userLogged}) => {
-  const post = posts.data[match.params.id];
+  const postId = match.params.id;
+  const post = posts.find(item => item._id === postId);
 
   return(
     <div className={styles.root}>
     <h1>Details</h1>
     <AD
-      id={post.id}
-      name={post.name}
-      description={post.description}
-      email={post.email}
+      title={post.title}
+      text={post.text}
+      author={post.author}
+      id={post._id}
+      created={post.created}
+      updated={post.updated}
+      status={post.status}
     />
 
     { userLogged === true
       ?
       <div className={styles.link}>
-        <Button className={styles.link} component={NavLink} to={process.env.PUBLIC_URL + `/post/${post.id}/edit`} activeClassName='active'>Edit</Button>
+         <Button className={styles.link} component={NavLink} to={process.env.PUBLIC_URL + `/post/${post._id}/edit`} activeClassName='active'>Edit</Button>
       </div>
       :
       ''
@@ -37,7 +41,7 @@ const Component = ({ posts, match, userLogged}) => {
 };
 
 Component.propTypes = {
-  posts: PropTypes.object,
+  posts: PropTypes.array,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
@@ -48,7 +52,7 @@ Component.propTypes = {
 
 const mapStateToProps = state => ({
   userLogged: state.userLogged,
-  posts: state.posts,
+  posts: getAll(state),
 });
 
 // const mapDispatchToProps = dispatch => ({

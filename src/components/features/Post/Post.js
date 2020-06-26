@@ -2,39 +2,60 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
+import { getAll, fetchPublished } from '../../../redux/postsRedux';
+
 
 import styles from './Post.module.scss';
 
 import { AD } from '../../features/AD/AD';
 
-const Component = ({posts}) => (
-  <div className={styles.root}>
-    {posts.data.map(post => (
-      <AD
-        key={post.id}
-        name={post.name}
-        description={post.description}
-        email={post.email}
-        id={post.id}
-      />
-    ))}
-  </div>
-);
+class Component extends React.Component {
+
+  componentDidMount() {
+    const { fetchPublishedPosts } = this.props;
+
+    fetchPublishedPosts();
+  }
+
+  render() {
+    const { posts } = this.props;
+
+    return (
+      <div className={styles.root}>
+          {posts.map(post => (
+          <AD
+            key={post._id}
+            title={post.title}
+            text={post.text}
+            author={post.author}
+            updated={post.updated}
+            created={post.created}
+            status={post.status}
+          />
+        ))}
+      </div>
+    );
+  }
+}
 
 Component.propTypes = {
-  posts: PropTypes.object,
+  posts: PropTypes.array,
+  fetchPublishedPosts: PropTypes.func,
+  loading: PropTypes.shape({
+    active: PropTypes.bool,
+    error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
+  }),
 };
 
 const mapStateToProps = state => ({
- posts: state.posts,
+ posts: getAll(state),
 });
 
-// const mapDispatchToProps = dispatch => ({
-//   someAction: arg => dispatch(reduxActionCreator(arg)),
-// });
+const mapDispatchToProps = dispatch => ({
+  fetchPublishedPosts: () => dispatch(fetchPublished()),
+});
 
-const Container = connect(mapStateToProps)(Component);
+const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
 
 export {
   // Component as Post,

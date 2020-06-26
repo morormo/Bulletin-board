@@ -11,7 +11,8 @@ import { TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
 const Component =  ({posts, match, className, editPost}) => {
-  const editedPost = posts.data[match.params.id];
+  const editedPostId = match.params.id;
+  const editedPost = posts.data.find(item => item._id === editedPostId);
 
   const [post, updatePost] = React.useState ({
     name: '',
@@ -34,9 +35,9 @@ const Component =  ({posts, match, className, editPost}) => {
     <div className={clsx(className, styles.root)}>
       <div className={styles.header}>Post Edit</div>
       <form className={styles.form} noValidate autoComplete="off" onSubmit={e => handleSubmit(e)}>
-        <TextField className={styles.textfield} id="outlined-basic" label="Name" variant="outlined" onChange = {e => handleChange(e, 'name')}/>
-        <TextField className={styles.textfield} id="outlined-basic" label="Description" variant="outlined" multiline="true" onChange = {e => handleChange(e, 'description')} />
-        <TextField className={styles.textfield} id="outlined-basic" label="E-mail" variant="outlined" onChange = {e => handleChange(e, 'email')} />
+        <TextField className={styles.textfield} id="outlined-basic" label="Name" variant="outlined" onChange = {e => handleChange(e, 'title')}/>
+        <TextField className={styles.textfield} id="outlined-basic" label="Description" variant="outlined" multiline="true" onChange = {e => handleChange(e, 'text')} />
+        <TextField className={styles.textfield} id="outlined-basic" label="E-mail" variant="outlined" onChange = {e => handleChange(e, 'author')} />
         <Button type="submit" className={styles.link} to={process.env.PUBLIC_URL + '/post/:id'}>Submit</Button>
       </form>
     </div>
